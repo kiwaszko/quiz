@@ -89,7 +89,7 @@
 <script>
 const answers = {};
 
-  if (window.Telegram?.WebApp) {
+if (window.Telegram?.WebApp) {
     const tg = window.Telegram.WebApp;
     tg.expand(); // optional: expand web app to full height
 } else {
@@ -116,8 +116,8 @@ document.getElementById('submit').addEventListener('click', () => {
     const dataToSend = JSON.stringify(answers);
 
     // Send to Telegram bot
-    if (window.Telegram && window.Telegram.WebApp) {
-        window.Telegram.WebApp.sendData(dataToSend);
+    if (window.Telegram && tg) {
+        tg.sendData(dataToSend);
         alert("Your answers have been sent!");
     } else {
         alert("Open this in Telegram Mini App to send your answers.");
