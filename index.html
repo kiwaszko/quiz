@@ -88,6 +88,13 @@
 <script>
 const answers = {};
 
+  if (window.Telegram?.WebApp) {
+    const tg = window.Telegram.WebApp;
+    tg.expand(); // optional: expand web app to full height
+} else {
+    alert("Please open this Mini App inside Telegram.");
+}
+  
 document.querySelectorAll('.options button').forEach(button => {
     button.addEventListener('click', e => {
         const qid = e.target.closest('.question').dataset.qid;
