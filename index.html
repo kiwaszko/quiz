@@ -116,8 +116,8 @@ document.getElementById('submit').addEventListener('click', () => {
     const dataToSend = JSON.stringify(answers);
 
     // Send to Telegram bot
-    if (window.Telegram && tg) {
-        tg.sendData(dataToSend);
+    if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.sendData(dataToSend);
         alert("Your answers have been sent!");
     } else {
         alert("Open this in Telegram Mini App to send your answers.");
