@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telegram Mini App Test</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      text-align: center; 
+      padding: 50px;
+      background-color: #f5f5f5;
+    }
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Telegram Mini App</h1>
+  <p>This is a simple test page for your bot.</p>
+  <button id="sendData">Send Data to Bot</button>
+
+  <script>
+    // Check if Telegram WebApp API is available
+    if (window.Telegram.WebApp) {
+      const tg = window.Telegram.WebApp;
+
+      document.getElementById("sendData").addEventListener("click", () => {
+        // Send a message back to the bot
+        tg.sendData("Hello from Mini App!");
+        alert("Data sent to bot!");
+      });
+
+      // Expand the web app to full height
+      tg.expand();
+    } else {
+      alert("Telegram WebApp API not found. Open this in Telegram Mini App.");
+    }
+  </script>
+</body>
+</html>
