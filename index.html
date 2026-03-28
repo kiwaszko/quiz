@@ -51,7 +51,7 @@ if (window.Telegram && window.Telegram.WebApp) {
         // send data to bot
         const message = "😊 Hello!";
         tg.sendData(message);
-        alert("Message sent to bot: " + message);
+        tg.close();
     });
 } else {
     alert("Please open this Mini App through the Telegram app.");
