@@ -1,49 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script src="https://telegram.org/js/telegram-web-app.js?61"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Telegram Mini App Info</title>
+<title>Telegram Mini App Hello</title>
+<script src="https://telegram.org/js/telegram-web-app.js?61"></script>
 <style>
   body {
     font-family: Arial, sans-serif;
     background: #f5f5f5;
     margin: 0;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
   }
   h1 {
-    text-align: center;
     color: #333;
   }
-  .info {
-    background: #fff;
-    padding: 15px 20px;
-    margin: 10px 0;
-    border-radius: 10px;
-    max-width: 600px;
-  }
-  .info p {
-    margin: 5px 0;
-  }
-  .label {
-    font-weight: bold;
-  }
-  #warning {
-    color: #d32f2f;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 50px;
-  }
   button {
-    margin-top: 15px;
-    padding: 12px 20px;
-    font-size: 16px;
-    border-radius: 10px;
+    margin-top: 20px;
+    padding: 15px 25px;
+    font-size: 18px;
     border: none;
+    border-radius: 10px;
     background-color: #4caf50;
     color: white;
     cursor: pointer;
+    transition: background 0.2s;
   }
   button:hover {
     background-color: #45a049;
@@ -52,51 +38,23 @@
 </head>
 <body>
 
-<h1>Telegram Mini App Info</h1>
-
-<div id="warning" style="display:none;">
-  ⚠️ This page must be opened via Telegram Mini App.
-</div>
-
-<div id="info-container" style="display:none;">
-  <div class="info"><p><span class="label">initData:</span> <span id="initData"></span></p></div>
-  <div class="info"><p><span class="label">version:</span> <span id="version"></span></p></div>
-  <div class="info"><p><span class="label">platform:</span> <span id="platform"></span></p></div>
-  <div class="info"><p><span class="label">colorScheme:</span> <span id="colorScheme"></span></p></div>
-  <div class="info"><p><span class="label">isActive:</span> <span id="isActive"></span></p></div>
-  <div class="info"><p><span class="label">isExpanded:</span> <span id="isExpanded"></span></p></div>
-  <div class="info"><p><span class="label">viewportHeight:</span> <span id="viewportHeight"></span></p></div>
-  <div class="info"><p><span class="label">viewportStableHeight:</span> <span id="viewportStableHeight"></span></p></div>
-  <div class="info"><p><span class="label">headerColor:</span> <span id="headerColor"></span></p></div>
-  <div class="info"><p><span class="label">backgroundColor:</span> <span id="backgroundColor"></span></p></div>
-  <div class="info"><p><span class="label">bottomBarColor:</span> <span id="bottomBarColor"></span></p></div>
-  <div class="info"><p><span class="label">isFullscreen:</span> <span id="isFullscreen"></span></p></div>
-  <div class="info"><p><span class="label">isOrientationLocked:</span> <span id="isOrientationLocked"></span></p></div>
-</div>
+<h1>Send Hello to User</h1>
+<button id="sendButton">Send 😊 Hello!</button>
 
 <script>
 if (window.Telegram && window.Telegram.WebApp) {
     const tg = window.Telegram.WebApp;
-    tg.expand(); // expand Mini App to full height
+    tg.expand(); // expand to full height
 
-    document.getElementById("info-container").style.display = "block";
-
-    // Populate fields
-    document.getElementById("initData").textContent = tg.initData || "N/A";
-    document.getElementById("version").textContent = tg.version || "N/A";
-    document.getElementById("platform").textContent = tg.platform || "N/A";
-    document.getElementById("colorScheme").textContent = tg.colorScheme || "N/A";
-    document.getElementById("isActive").textContent = tg.isActive;
-    document.getElementById("isExpanded").textContent = tg.isExpanded;
-    document.getElementById("viewportHeight").textContent = tg.viewportHeight;
-    document.getElementById("viewportStableHeight").textContent = tg.viewportStableHeight;
-    document.getElementById("headerColor").textContent = tg.headerColor || "N/A";
-    document.getElementById("backgroundColor").textContent = tg.backgroundColor || "N/A";
-    document.getElementById("bottomBarColor").textContent = tg.bottomBarColor || "N/A";
-    document.getElementById("isFullscreen").textContent = tg.isFullscreen;
-    document.getElementById("isOrientationLocked").textContent = tg.isOrientationLocked;
+    const button = document.getElementById("sendButton");
+    button.addEventListener("click", () => {
+        // send data to bot
+        const message = "😊 Hello!";
+        tg.sendData(message);
+        alert("Message sent to bot: " + message);
+    });
 } else {
-    document.getElementById("warning").style.display = "block";
+    alert("Please open this Mini App through the Telegram app.");
 }
 </script>
 
