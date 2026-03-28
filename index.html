@@ -1,45 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Telegram Mini App Test</title>
-  <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      text-align: center; 
-      padding: 50px;
-      background-color: #f5f5f5;
-    }
-    button {
-      padding: 15px 30px;
-      font-size: 18px;
-      margin-top: 20px;
-      cursor: pointer;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Telegram Quiz Mini App</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  h1 {
+    color: #333;
+  }
+  .question {
+    background: #fff;
+    padding: 15px 20px;
+    margin: 10px 0;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+  }
+  .question p {
+    font-weight: bold;
+  }
+  .options button {
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #e0e0e0;
+    transition: background 0.2s;
+  }
+  .options button:hover {
+    background: #d0d0d0;
+  }
+  #submit {
+    margin-top: 20px;
+    padding: 15px 25px;
+    font-size: 18px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  #submit:hover {
+    background: #45a049;
+  }
+</style>
 </head>
 <body>
-  <h1>Telegram Mini App</h1>
-  <p>This is a simple test page for your bot.</p>
-  <button id="sendData">Send Data to Bot</button>
 
-  <script>
-    // Check if Telegram WebApp API is available
-    if (window.Telegram.WebApp) {
-      const tg = window.Telegram.WebApp;
+<h1>Quick Telegram Quiz</h1>
 
-      document.getElementById("sendData").addEventListener("click", () => {
-        // Send a message back to the bot
-        tg.sendData("Hello from Mini App!");
-        alert("Data sent to bot!");
-      });
+<div class="question" data-qid="1">
+  <p>1. Which programming language is used for web development?</p>
+  <div class="options">
+    <button data-answer="Python">Python</button>
+    <button data-answer="C++">C++</button>
+    <button data-answer="JavaScript">JavaScript</button>
+    <button data-answer="Java">Java</button>
+  </div>
+</div>
 
-      // Expand the web app to full height
-      tg.expand();
-    } else {
-      alert("Telegram WebApp API not found. Open this in Telegram Mini App.");
+<div class="question" data-qid="2">
+  <p>2. What is the Red Planet?</p>
+  <div class="options">
+    <button data-answer="Venus">Venus</button>
+    <button data-answer="Mars">Mars</button>
+    <button data-answer="Jupiter">Jupiter</button>
+    <button data-answer="Saturn">Saturn</button>
+  </div>
+</div>
+
+<button id="submit">Submit Quiz</button>
+
+<script>
+const answers = {};
+
+document.querySelectorAll('.options button').forEach(button => {
+    button.addEventListener('click', e => {
+        const qid = e.target.closest('.question').dataset.qid;
+        answers[qid] = e.target.dataset.answer;
+        // Highlight selected
+        const siblings = e.target.parentElement.querySelectorAll('button');
+        siblings.forEach(btn => btn.style.background = '#e0e0e0');
+        e.target.style.background = '#90caf9';
+    });
+});
+
+document.getElementById('submit').addEventListener('click', () => {
+    if (Object.keys(answers).length < 2) { // ensure all questions answered
+        alert("Please answer all questions!");
+        return;
     }
-  </script>
+
+    const dataToSend = JSON.stringify(answers);
+
+    // Send to Telegram bot
+    if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.sendData(dataToSend);
+        alert("Your answers have been sent!");
+    } else {
+        alert("Open this in Telegram Mini App to send your answers.");
+    }
+});
+</script>
+
 </body>
 </html>
