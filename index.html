@@ -3,126 +3,100 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Telegram Quiz Mini App</title>
+<title>Telegram Mini App Info</title>
 <style>
   body {
     font-family: Arial, sans-serif;
     background: #f5f5f5;
     margin: 0;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
   h1 {
+    text-align: center;
     color: #333;
   }
-  .question {
+  .info {
     background: #fff;
     padding: 15px 20px;
     margin: 10px 0;
     border-radius: 10px;
-    width: 100%;
-    max-width: 500px;
+    max-width: 600px;
   }
-  .question p {
+  .info p {
+    margin: 5px 0;
+  }
+  .label {
     font-weight: bold;
   }
-  .options button {
-    display: block;
-    width: 100%;
-    margin: 5px 0;
-    padding: 10px;
+  #warning {
+    color: #d32f2f;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 50px;
+  }
+  button {
+    margin-top: 15px;
+    padding: 12px 20px;
     font-size: 16px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background: #e0e0e0;
-    transition: background 0.2s;
-  }
-  .options button:hover {
-    background: #d0d0d0;
-  }
-  #submit {
-    margin-top: 20px;
-    padding: 15px 25px;
-    font-size: 18px;
-    background: #4caf50;
-    color: white;
-    border: none;
     border-radius: 10px;
+    border: none;
+    background-color: #4caf50;
+    color: white;
     cursor: pointer;
-    transition: background 0.2s;
   }
-  #submit:hover {
-    background: #45a049;
+  button:hover {
+    background-color: #45a049;
   }
 </style>
 </head>
-<script src="https://telegram.org/js/telegram-web-app.js?61"></script>
 <body>
 
-<h1>Quick Telegram Quiz</h1>
+<h1>Telegram Mini App Info</h1>
 
-<div class="question" data-qid="1">
-  <p>1. Which programming language is used for web development?</p>
-  <div class="options">
-    <button data-answer="Python">Python</button>
-    <button data-answer="C++">C++</button>
-    <button data-answer="JavaScript">JavaScript</button>
-    <button data-answer="Java">Java</button>
-  </div>
+<div id="warning" style="display:none;">
+  ⚠️ This page must be opened via Telegram Mini App.
 </div>
 
-<div class="question" data-qid="2">
-  <p>2. What is the Red Planet?</p>
-  <div class="options">
-    <button data-answer="Venus">Venus</button>
-    <button data-answer="Mars">Mars</button>
-    <button data-answer="Jupiter">Jupiter</button>
-    <button data-answer="Saturn">Saturn</button>
-  </div>
+<div id="info-container" style="display:none;">
+  <div class="info"><p><span class="label">initData:</span> <span id="initData"></span></p></div>
+  <div class="info"><p><span class="label">version:</span> <span id="version"></span></p></div>
+  <div class="info"><p><span class="label">platform:</span> <span id="platform"></span></p></div>
+  <div class="info"><p><span class="label">colorScheme:</span> <span id="colorScheme"></span></p></div>
+  <div class="info"><p><span class="label">isActive:</span> <span id="isActive"></span></p></div>
+  <div class="info"><p><span class="label">isExpanded:</span> <span id="isExpanded"></span></p></div>
+  <div class="info"><p><span class="label">viewportHeight:</span> <span id="viewportHeight"></span></p></div>
+  <div class="info"><p><span class="label">viewportStableHeight:</span> <span id="viewportStableHeight"></span></p></div>
+  <div class="info"><p><span class="label">headerColor:</span> <span id="headerColor"></span></p></div>
+  <div class="info"><p><span class="label">backgroundColor:</span> <span id="backgroundColor"></span></p></div>
+  <div class="info"><p><span class="label">bottomBarColor:</span> <span id="bottomBarColor"></span></p></div>
+  <div class="info"><p><span class="label">isFullscreen:</span> <span id="isFullscreen"></span></p></div>
+  <div class="info"><p><span class="label">isOrientationLocked:</span> <span id="isOrientationLocked"></span></p></div>
 </div>
-
-<button id="submit">Submit Quiz</button>
 
 <script>
-const answers = {};
-
-if (window.Telegram?.WebApp) {
+if (window.Telegram && window.Telegram.WebApp) {
     const tg = window.Telegram.WebApp;
-    tg.expand(); // optional: expand web app to full height
+    tg.expand(); // expand Mini App to full height
+
+    document.getElementById("info-container").style.display = "block";
+
+    // Populate fields
+    document.getElementById("initData").textContent = tg.initData || "N/A";
+    document.getElementById("version").textContent = tg.version || "N/A";
+    document.getElementById("platform").textContent = tg.platform || "N/A";
+    document.getElementById("colorScheme").textContent = tg.colorScheme || "N/A";
+    document.getElementById("isActive").textContent = tg.isActive;
+    document.getElementById("isExpanded").textContent = tg.isExpanded;
+    document.getElementById("viewportHeight").textContent = tg.viewportHeight;
+    document.getElementById("viewportStableHeight").textContent = tg.viewportStableHeight;
+    document.getElementById("headerColor").textContent = tg.headerColor || "N/A";
+    document.getElementById("backgroundColor").textContent = tg.backgroundColor || "N/A";
+    document.getElementById("bottomBarColor").textContent = tg.bottomBarColor || "N/A";
+    document.getElementById("isFullscreen").textContent = tg.isFullscreen;
+    document.getElementById("isOrientationLocked").textContent = tg.isOrientationLocked;
 } else {
-    alert("Please open this Mini App inside Telegram.");
+    document.getElementById("warning").style.display = "block";
 }
-  
-document.querySelectorAll('.options button').forEach(button => {
-    button.addEventListener('click', e => {
-        const qid = e.target.closest('.question').dataset.qid;
-        answers[qid] = e.target.dataset.answer;
-        // Highlight selected
-        const siblings = e.target.parentElement.querySelectorAll('button');
-        siblings.forEach(btn => btn.style.background = '#e0e0e0');
-        e.target.style.background = '#90caf9';
-    });
-});
-
-document.getElementById('submit').addEventListener('click', () => {
-    if (Object.keys(answers).length < 2) { // ensure all questions answered
-        alert("Please answer all questions!");
-        return;
-    }
-
-    const dataToSend = JSON.stringify(answers);
-
-    // Send to Telegram bot
-    if (window.Telegram && window.Telegram.WebApp) {
-        window.Telegram.WebApp.sendData(dataToSend);
-        alert("Your answers have been sent!");
-    } else {
-        alert("Open this in Telegram Mini App to send your answers.");
-    }
-});
 </script>
 
 </body>
