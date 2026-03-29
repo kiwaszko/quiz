@@ -35,19 +35,27 @@ document.getElementById("myForm").addEventListener("submit", e => {
   };
 
   fetch(scriptURL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data),
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(data),
   })
-  .then(res => res.json())
-  .then(() => {
-    document.body.innerHTML = "<h2>✅ Sent successfully</h2>";
+  .then(async res => {
+    const text = await res.text(); // read raw response
+    console.log("STATUS:", res.status);
+    console.log("RESPONSE:", text);
+  
+    try {
+      const json = JSON.parse(text);
+      document.body.innerHTML = "<h2>✅ Sent successfully</h2>";
+    } catch (e) {
+      throw new Error("Invalid JSON: " + text);
+    }
   })
-  .catch(err => {
-    console.error(err);
-    document.body.innerHTML = "<h2>❌ Error sending data</h2>";
+  .catch(error => {
+    console.error("FULL ERROR:", error);
+    document.body.innerHTML = "<h2>❌ Error: " + error.message + "</h2>";
   });
 });
 </script>
