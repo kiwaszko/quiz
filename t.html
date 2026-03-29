@@ -1,0 +1,25 @@
+<form id="myForm">
+  <input name="name" placeholder="Name" required />
+  <input name="email" placeholder="Email" required />
+  <textarea name="message" placeholder="Message"></textarea>
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+const scriptURL = "YOUR_GOOGLE_SCRIPT_URL";
+
+document.getElementById("myForm").addEventListener("submit", e => {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+  const data = Object.fromEntries(formData.entries());
+
+  fetch(scriptURL, {
+    method: "POST",
+    body: JSON.stringify(data),
+  })
+  .then(res => res.json())
+  .then(response => alert("Success!"))
+  .catch(error => alert("Error!"));
+});
+</script>
