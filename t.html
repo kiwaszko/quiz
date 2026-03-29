@@ -1,6 +1,8 @@
+<script src="https://telegram.org/js/telegram-web-app.js?61"></script>
+
 <form id="myForm">
-  <input name="name" placeholder="Name" required />
-  <input name="email" placeholder="Email" required />
+  <input name="name" placeholder="Name" />
+  <input name="email" placeholder="Email" />
   <textarea name="message" placeholder="Message"></textarea>
   <button type="submit">Submit</button>
 </form>
@@ -11,15 +13,32 @@ const scriptURL = "https://script.google.com/macros/s/AKfycbwLtQqzkJSAhgN56prRH8
 document.getElementById("myForm").addEventListener("submit", e => {
   e.preventDefault();
 
-  const formData = new FormData(e.target);
-  const data = Object.fromEntries(formData.entries());
+  const tg = window.Telegram.WebApp;
+  const user = tg.initDataUnsafe?.user;
+
+  // Fallbacks if Telegram data is missing
+  const username = user?.username || "unknown_user";
+  const firstName = user?.first_name || "NoName";
+  const userId = user?.id || "0";
+
+  const data = {
+    name: username, // Telegram username
+    email: userId + "_" + firstName, // ID + first name
+    message: Math.floor(Math.random() * 1000000) // random number
+  };
 
   fetch(scriptURL, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify(data),
   })
   .then(res => res.json())
   .then(response => alert("Success!"))
-  .catch(error => alert("Error!"));
+  .catch(error => {
+    console.error(error);
+    alert("Error!");
+  });
 });
 </script>
