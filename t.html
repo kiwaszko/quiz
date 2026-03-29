@@ -1,30 +1,37 @@
 <script src="https://telegram.org/js/telegram-web-app.js?61"></script>
 
-<form id="myForm">
-  <input name="name" placeholder="Name" />
-  <input name="email" placeholder="Email" />
-  <textarea name="message" placeholder="Message"></textarea>
+<form id="myForm" style="display:none;">
   <button type="submit">Submit</button>
 </form>
 
 <script>
 const scriptURL = "https://script.google.com/macros/s/AKfycbwLtQqzkJSAhgN56prRH81FYpE2BqA0TEYThSLsH02wssDhjHfTD4YMN8_C8k_scZti/exec";
 
+// 🚫 Block if NOT opened inside Telegram
+if (!window.Telegram || !window.Telegram.WebApp) {
+  document.body.innerHTML = "<h2>❌ Please open this app inside Telegram.</h2>";
+  throw new Error("Not opened via Telegram");
+}
+
+const tg = window.Telegram.WebApp;
+const user = tg.initDataUnsafe?.user;
+
+// 🚫 Block if no Telegram user data
+if (!user) {
+  document.body.innerHTML = "<h2>❌ Telegram user data not found.</h2>";
+  throw new Error("No Telegram user");
+}
+
+// ✅ If everything is OK → show form (or just proceed)
+document.getElementById("myForm").style.display = "block";
+
 document.getElementById("myForm").addEventListener("submit", e => {
   e.preventDefault();
 
-  const tg = window.Telegram.WebApp;
-  const user = tg.initDataUnsafe?.user;
-
-  // Fallbacks if Telegram data is missing
-  const username = user?.username || "unknown_user";
-  const firstName = user?.first_name || "NoName";
-  const userId = user?.id || "0";
-
   const data = {
-    name: username, // Telegram username
-    email: userId + "_" + firstName, // ID + first name
-    message: Math.floor(Math.random() * 1000000) // random number
+    name: user.username || "unknown_user",
+    email: (user.id || "0") + "_" + (user.first_name || "NoName"),
+    message: Math.floor(Math.random() * 1000000)
   };
 
   fetch(scriptURL, {
@@ -35,10 +42,12 @@ document.getElementById("myForm").addEventListener("submit", e => {
     body: JSON.stringify(data),
   })
   .then(res => res.json())
-  .then(response => alert("Success!"))
-  .catch(error => {
-    console.error(error);
-    alert("Error!");
+  .then(() => {
+    document.body.innerHTML = "<h2>✅ Sent successfully</h2>";
+  })
+  .catch(err => {
+    console.error(err);
+    document.body.innerHTML = "<h2>❌ Error sending data</h2>";
   });
 });
 </script>
