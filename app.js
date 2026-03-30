@@ -209,6 +209,7 @@ function buildResultString() {
   return parts.join(":");
 }
 
+/*
 // ── SUBMIT (UPDATED) ────────────────────────────────────────────────
 async function handleSubmit() {
   submitBtn.disabled = true;
@@ -219,30 +220,22 @@ async function handleSubmit() {
     return;
   }
 
-  // Build result string
-  const resultString = buildResultString();
-	
+
   overlay.classList.remove("hidden");
 
-  /*const payload = {
+  const payload = {
     initData: tg ? tg.initData : "dev",
     results: buildResultString(),
   };
-  */
-  const payload = `results=${encodeURIComponent(resultString)}&initData=${encodeURIComponent(tg ? tg.initData : "dev_mode_no_telegram")}`;
   
   try {
-	/*
+	
     const res = await fetchWithRetry(GOOGLE_APPS_SCRIPT_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
-    */
-	const res = await fetch(GOOGLE_APPS_SCRIPT_URL, {
-      method: "POST",
-      body: payload
-    });
+    
 	
     const data = await res.json().catch(() => null);
     
@@ -260,6 +253,60 @@ async function handleSubmit() {
     overlay.classList.add("hidden");
     showError(err.message || "Network error. Please try again.");
     submitBtn.disabled = false;
+  }
+}
+*/
+
+// ── SUBMIT ──────────────────────────────────────────────────────────
+async function handleSubmit() {
+  // Disable button immediately
+  submitBtn.disabled = true;
+  submitBtn.classList.add("opacity-50", "cursor-not-allowed");
+
+  // Require all questions to be answered
+  const unanswered = quizData.some(q => 
+    document.querySelectorAll(`input[name="q${q.id}"]:checked`).length === 0
+  );
+  if (unanswered) {
+    showError("Please answer all questions before submitting.");
+    submitBtn.disabled = false;
+    submitBtn.classList.remove("opacity-50", "cursor-not-allowed");
+    return;
+  }
+
+  // Build result string
+  const resultString = buildResultString();
+
+  // Show loading overlay
+  overlay.classList.remove("hidden");
+
+  const payload = `results=${encodeURIComponent(resultString)}&initData=${encodeURIComponent(tg ? tg.initData : "dev_mode_no_telegram")}`;
+
+  try {
+    const res = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+      method: "POST",
+      body: payload // plain text only, no headers
+    });
+
+    // Get plain text response
+    const text = await res.text();
+
+    if (text.startsWith("Error")) {
+      throw new Error(text);
+    }
+
+    // Save completion to localStorage
+    localStorage.setItem(todayKey(), "true");
+
+    overlay.classList.add("hidden");
+    showScreen(screenSuccess);
+    startCountdown(countdownSuccess, closeMiniApp);
+
+  } catch (err) {
+    overlay.classList.add("hidden");
+    showError(err.message || "Network error. Please try again.");
+    submitBtn.disabled = false;
+    submitBtn.classList.remove("opacity-50", "cursor-not-allowed");
   }
 }
 
