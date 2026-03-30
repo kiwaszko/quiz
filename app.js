@@ -219,6 +219,9 @@ async function handleSubmit() {
     return;
   }
 
+  // Build result string
+  const resultString = buildResultString();
+	
   overlay.classList.remove("hidden");
 
   /*const payload = {
