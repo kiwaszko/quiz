@@ -1,6 +1,6 @@
 
 // ── CONFIG ──────────────────────────────────────────────────────────
-const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxPJgB9p0FKquzNqoZFyvtyvxxfzC1DT3EI2exZRAy5-_CvMWqJn7cw662Zj0h2v5ab/exec";
+const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec";
 const COUNTDOWN_SECONDS = 5;
 const DATA_FILES = ["questions.csv", "questions.tsv", "questions.xlsx"];
 
@@ -221,20 +221,29 @@ async function handleSubmit() {
 
   overlay.classList.remove("hidden");
 
-  const payload = {
+  /*const payload = {
     initData: tg ? tg.initData : "dev",
     results: buildResultString(),
   };
-
+  */
+  const payload = `results=${encodeURIComponent(resultString)}&initData=${encodeURIComponent(tg ? tg.initData : "dev_mode_no_telegram")}`;
+  
   try {
+	/*
     const res = await fetchWithRetry(GOOGLE_APPS_SCRIPT_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
-
+    */
+	const res = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain" },
+      body: payload
+    });
+	
     const data = await res.json().catch(() => null);
-
+    
     if (!data || !data.success) {
       throw new Error(data?.error || "Submission failed");
     }
