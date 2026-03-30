@@ -241,7 +241,6 @@ async function handleSubmit() {
     */
 	const res = await fetch(GOOGLE_APPS_SCRIPT_URL, {
       method: "POST",
-      headers: { "Content-Type": "text/plain" },
       body: payload
     });
 	
