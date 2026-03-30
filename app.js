@@ -209,54 +209,6 @@ function buildResultString() {
   return parts.join(":");
 }
 
-/*
-// ── SUBMIT (UPDATED) ────────────────────────────────────────────────
-async function handleSubmit() {
-  submitBtn.disabled = true;
-
-  if (!allQuestionsAnswered()) {
-    showError("Please answer all questions.");
-    submitBtn.disabled = false;
-    return;
-  }
-
-
-  overlay.classList.remove("hidden");
-
-  const payload = {
-    initData: tg ? tg.initData : "dev",
-    results: buildResultString(),
-  };
-  
-  try {
-	
-    const res = await fetchWithRetry(GOOGLE_APPS_SCRIPT_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    
-	
-    const data = await res.json().catch(() => null);
-    
-    if (!data || !data.success) {
-      throw new Error(data?.error || "Submission failed");
-    }
-
-    localStorage.setItem(todayKey(), "true");
-
-    overlay.classList.add("hidden");
-    showScreen(screenSuccess);
-    startCountdown(countdownSuccess, closeMiniApp);
-
-  } catch (err) {
-    overlay.classList.add("hidden");
-    showError(err.message || "Network error. Please try again.");
-    submitBtn.disabled = false;
-  }
-}
-*/
-
 // ── SUBMIT ──────────────────────────────────────────────────────────
 async function handleSubmit() {
   // Disable button immediately
@@ -311,14 +263,13 @@ async function handleSubmit() {
 }
 
 // ── INIT ────────────────────────────────────────────────────────────
-async function init() {
-  /*
+async function init() {  
   if (localStorage.getItem(todayKey())) {
     showScreen(screenAlreadyDone);
     startCountdown(countdownAlready, closeMiniApp);
     return;
   }
-*/
+
   try {
     const { response, filename } = await loadDataFile();
     const rows = await parseDataFile(response, filename);
