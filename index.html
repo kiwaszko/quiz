@@ -12,6 +12,7 @@
       background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
       min-height: 100vh;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      display:flex;align-items:center;justify-content:center;
     }
 
     /* spinner */
@@ -46,6 +47,28 @@
       animation: pulseRing 1s ease-out;
     }
 
+    .wrap{animation:fadeInUp .5s ease-out both;text-align:center}
+    .orb-ring{
+      width:120px;height:120px;margin:0 auto 24px;
+      border-radius:50%;border:2px solid #818cf8;
+      background:rgba(99,102,241,.12);
+      overflow:hidden;position:relative;
+      box-shadow:0 0 28px rgba(99,102,241,.25);
+    }
+    .orb-ring canvas{width:100%;height:100%;display:block}
+    h1{color:#fff;font-size:1.5rem;font-weight:700;margin-bottom:8px}
+    p{color:rgba(255,255,255,.55);font-size:1rem;line-height:1.6;margin-bottom:28px}
+    .cd-ring{
+      width:64px;height:64px;margin:0 auto 8px;
+      border-radius:50%;border:2px solid #818cf8;
+      background:rgba(99,102,241,.15);
+      display:flex;align-items:center;justify-content:center;
+      font-size:1.5rem;font-weight:700;color:#a5b4fc;
+      animation:pulseRing 1s ease-out;
+    }
+    .cd-ring.done{border-color:#34d399;color:#34d399}
+    .sub{color:rgba(255,255,255,.35);font-size:.85rem}
+
     /* toast slide */
     @keyframes slideIn {
       from { transform: translateY(-100%); opacity: 0; }
@@ -54,6 +77,8 @@
     .toast-slide {
       animation: slideIn 0.3s ease-out;
     }
+
+    
 
     /* hide scrollbar but keep scroll */
     .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -148,12 +173,14 @@
   <!-- ─── SCREEN: NO QUIZ TODAY ─────────────────────────────────── -->
 <div id="screen-no-quiz" class="hidden fixed inset-0 flex items-center justify-center p-6">
   <div class="animate-fade-in-up text-center space-y-6">
-    <div class="w-24 h-24 mx-auto rounded-full bg-indigo-500/20 border-2 border-indigo-400 flex items-center justify-center">
+    <!--<div class="w-24 h-24 mx-auto rounded-full bg-indigo-500/20 border-2 border-indigo-400 flex items-center justify-center">
       <svg class="w-12 h-12 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L15 12l-5.25-5"/>
       </svg>
     </div>
-    <h1 class="text-2xl font-bold text-white">Brak quizu</h1>
+    -->
+    <div class="orb-ring"><canvas id="plasma" width="240" height="240"></canvas></div>
+    <h1 class="text-2xl font-bold text-white">Brak kwizu</h1>
     <p class="text-white/60 text-base">
       Dzisiaj kwizu nie ma.<br>
       Poinformujemy o kolejnym w przyszłości.
