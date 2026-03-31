@@ -70,7 +70,7 @@ async function fetchWithRetry(url, options, retries = 2) {
   }
 }
 
-// ── FILE LOADING (unchanged) ────────────────────────────────────────
+// ── FILE LOADING ────────────────────────────────────────
 async function loadDataFile() {
   for (const file of DATA_FILES) {
     try {
@@ -89,7 +89,7 @@ async function parseDataFile(response, filename) {
   return parseCSVText(text);
 }
 
-// ── PARSERS (unchanged) ─────────────────────────────────────────────
+// ── PARSERS ─────────────────────────────────────────────
 function parseXLSX(buffer) {
   const workbook = XLSX.read(buffer, { type: "array" });
   const sheet = workbook.Sheets[workbook.SheetNames[0]];
@@ -139,7 +139,12 @@ function rowsToQuestions(rows) {
   return questions;
 }
 
-// ── RENDER QUIZ (UPDATED: shuffle answers) ──────────────────────────
+// ── SHUFFLE ─────────────────────────────────────────────────────────
+function shuffle(arr) {
+  return [...arr].sort(() => Math.random() - 0.5);
+}
+
+// ── RENDER QUIZ ──────────────────────────
 let quizData = [];
 
 function renderQuiz(questions) {
@@ -191,7 +196,7 @@ function renderQuiz(questions) {
     quizContainer.appendChild(card);
   });
 }
-// ── VALIDATION (NEW) ────────────────────────────────────────────────
+// ── VALIDATION ────────────────────────────────────────────────
 function allQuestionsAnswered() {
   return quizData.every(q =>
     document.querySelectorAll(`input[name="q${q.id}"]:checked`).length > 0
