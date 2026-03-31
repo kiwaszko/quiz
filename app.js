@@ -264,11 +264,11 @@ async function handleSubmit() {
 
 // ── INIT ────────────────────────────────────────────────────────────
 async function init() {  
-  if (localStorage.getItem(todayKey())) {
+  /*if (localStorage.getItem(todayKey())) {
     showScreen(screenAlreadyDone);
     startCountdown(countdownAlready, closeMiniApp);
     return;
-  }
+  }*/
 
   try {
     const { response, filename } = await loadDataFile();
