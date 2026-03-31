@@ -55,14 +55,14 @@ function closeMiniApp() {
 function showError(msg) {
   errorMsg.textContent = msg;
   errorToast.classList.remove("hidden");
-  setTimeout(() => errorToast.classList.add("hidden"), 4000);
+  //setTimeout(() => errorToast.classList.add("hidden"), 20000);
 }
 
 // ── RETRY LOGIC ─────────────────────────────────────────────────────
 async function fetchWithRetry(url, options, retries = 2) {
   try {
     const res = await fetch(url, options);
-    if (!res.ok) throw new Error(`Server error (${res.status})`);
+    if (!res.ok) throw new Error(`Błąd serwera: (${res.status})`);
     return res;
   } catch (err) {
     if (retries === 0) throw err;
@@ -224,7 +224,7 @@ async function handleSubmit() {
     document.querySelectorAll(`input[name="q${q.id}"]:checked`).length === 0
   );
   if (unanswered) {
-    showError("Please answer all questions before submitting.");
+    showError("Proszę odpowiedz na wszystkie pytania przed wysłaniem odpowiedzi.");
     submitBtn.disabled = false;
     submitBtn.classList.remove("opacity-50", "cursor-not-allowed");
     return;
@@ -260,7 +260,7 @@ async function handleSubmit() {
 
   } catch (err) {
     overlay.classList.add("hidden");
-    showError(err.message || "Network error. Please try again.");
+    showError(err.message || "Błąd połączenia. Spróbuj ponownie później.");
     submitBtn.disabled = false;
     submitBtn.classList.remove("opacity-50", "cursor-not-allowed");
   }
@@ -279,7 +279,7 @@ async function init() {
     const rows = await parseDataFile(response, filename);
     const questions = rowsToQuestions(rows);
 
-    if (!questions.length) throw new Error("No questions found.");
+    if (!questions.length) throw new Error("Nie znaleziono pytań w pliku.");
 
     renderQuiz(questions);
     showScreen(screenQuiz);
@@ -291,4 +291,5 @@ async function init() {
 
 // ── EVENTS ──────────────────────────────────────────────────────────
 submitBtn.addEventListener("click", handleSubmit);
+errorMsg.addEventListener("click", () => {errorToast.classList.add("hidden");});
 document.addEventListener("DOMContentLoaded", init);
