@@ -147,7 +147,10 @@ function rowsToQuestions(rows) {
   for (let i = 1; i < rows.length; i++) {
     const row = rows[i];
     if (!row || row.length < 3) continue;
-    const options = row.slice(2).filter(o => o !== "");
+    const options = row.slice(2).map((o, idx) => ({
+      text: o,
+      originalIndex: idx + 1 // <-- store original CSV index
+    })).filter(o => o.text !== "");
     questions.push({ id: row[0], question: row[1], options });
   }
   return questions;
@@ -193,7 +196,7 @@ function renderQuiz(questions) {
       const cb = document.createElement("input");
       cb.type = "checkbox";
       cb.name = `q${q.id}`;
-      cb.value = optObj.index; // store index instead of text
+      cb.value = optObj.originalIndex; // store index instead of text
       cb.className = "hidden";
 
       const box = document.createElement("span");
