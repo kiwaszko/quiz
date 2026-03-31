@@ -181,14 +181,16 @@ function renderQuiz(questions) {
     
     card.appendChild(title);
 
-    // attach index BEFORE shuffle
+    /*// attach index BEFORE shuffle
     const optionsWithIndex = q.options.map((opt, i) => ({
       text: opt,
       index: i + 1 // 1-based index
     }));
 
     const shuffledOptions = shuffle(optionsWithIndex);
-
+    */
+    const shuffledOptions = shuffle(q.options); // shuffle the option objects
+    
     shuffledOptions.forEach((optObj) => {
       const label = document.createElement("label");
       label.className = "flex items-center gap-3 p-3 rounded-xl cursor-pointer hover:bg-white/10";
