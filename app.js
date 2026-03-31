@@ -233,7 +233,16 @@ async function handleSubmit() {
   overlay.classList.remove("hidden");
 
   const payload = `results=${encodeURIComponent(resultString)}&initData=${encodeURIComponent(tg ? tg.initData : "dev_mode_no_telegram")}`;
-
+  // Calculate size
+  const sizeBytes = new TextEncoder().encode(payload).length;
+  const sizeKB = (sizeBytes / 1024).toFixed(2);
+  
+  // Show as toast (reuse existing UI)
+  errorMsg.textContent = `Payload size: ${sizeBytes} bytes (${sizeKB} KB)`;
+  errorToast.classList.remove("hidden");
+  
+  // auto-hide after 3s
+  setTimeout(() => errorToast.classList.add("hidden"), 3000);
   try {
     const res = await fetch(GOOGLE_APPS_SCRIPT_URL, {
       method: "POST",
