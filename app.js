@@ -151,7 +151,7 @@ function renderQuiz(questions) {
   quizData = questions;
   quizContainer.innerHTML = "";
 
-  questions.forEach((q, idx) => {
+  questions.forEach((q) => {
     const card = document.createElement("div");
     card.className = "bg-white/10 border border-white/20 rounded-2xl p-5 space-y-3";
 
@@ -160,16 +160,22 @@ function renderQuiz(questions) {
     title.textContent = `${q.id}. ${q.question}`;
     card.appendChild(title);
 
-    const shuffledOptions = shuffle(q.options); // ✅ shuffled
+    // attach index BEFORE shuffle
+    const optionsWithIndex = q.options.map((opt, i) => ({
+      text: opt,
+      index: i + 1 // 1-based index
+    }));
 
-    shuffledOptions.forEach((opt) => {
+    const shuffledOptions = shuffle(optionsWithIndex);
+
+    shuffledOptions.forEach((optObj) => {
       const label = document.createElement("label");
       label.className = "flex items-center gap-3 p-3 rounded-xl cursor-pointer hover:bg-white/10";
 
       const cb = document.createElement("input");
       cb.type = "checkbox";
       cb.name = `q${q.id}`;
-      cb.value = opt;
+      cb.value = optObj.index; // store index instead of text
       cb.className = "hidden";
 
       const box = document.createElement("span");
@@ -177,7 +183,7 @@ function renderQuiz(questions) {
 
       const text = document.createElement("span");
       text.className = "text-white";
-      text.textContent = opt;
+      text.textContent = optObj.text; // still show text
 
       cb.addEventListener("change", () => {
         box.classList.toggle("bg-indigo-500", cb.checked);
@@ -189,7 +195,6 @@ function renderQuiz(questions) {
 
     quizContainer.appendChild(card);
   });
-}
 
 // ── VALIDATION (NEW) ────────────────────────────────────────────────
 function allQuestionsAnswered() {
@@ -203,7 +208,11 @@ function buildResultString() {
   const parts = [];
   quizData.forEach(q => {
     const checked = document.querySelectorAll(`input[name="q${q.id}"]:checked`);
-    const answers = Array.from(checked).map(cb => cb.value);
+
+    const answers = Array.from(checked)
+      .map(cb => Number(cb.value)) // already index
+      .sort((a, b) => a - b); // optional: keep order clean
+
     parts.push(`${q.id},${answers.join(",")}`);
   });
   return parts.join(":");
