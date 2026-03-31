@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Daily Quiz</title>
+  <title>Kwiz</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
@@ -70,11 +70,11 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
         </svg>
       </div>
-      <h1 class="text-2xl font-bold text-white">Already Completed!</h1>
-      <p class="text-white/60 text-base">You've already submitted today's quiz.<br>Come back tomorrow for a new one!</p>
+      <h1 class="text-2xl font-bold text-white">Kwiz Ukończony!</h1>
+      <p class="text-white/60 text-base">Kwiz został już dzisiaj rozwiązany.<br>Zapraszamy następnym razem!</p>
       <div class="flex flex-col items-center gap-2">
         <div id="countdown-already" class="w-16 h-16 rounded-full bg-indigo-500/20 border-2 border-indigo-400 flex items-center justify-center text-2xl font-bold text-indigo-300 pulse-ring">5</div>
-        <span class="text-white/40 text-sm">Closing…</span>
+        <span class="text-white/40 text-sm">Zamykam…</span>
       </div>
     </div>
   </div>
@@ -90,8 +90,8 @@
           </svg>
         </div>
         <div>
-          <h1 class="text-lg font-bold text-white leading-tight">Daily Quiz</h1>
-          <p class="text-xs text-white/50">Select all correct answers</p>
+          <h1 class="text-lg font-bold text-white leading-tight">Kwiz</h1>
+          <p class="text-xs text-white/50">Wybierz wszystkie poprawne odpowiedzi</p>
         </div>
       </div>
     </div>
@@ -104,7 +104,7 @@
       <div class="max-w-lg mx-auto mt-6 pb-8">
         <button id="btn-submit"
           class="w-full py-4 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-bold text-lg shadow-lg shadow-indigo-500/30 active:scale-[0.98] transition-all duration-150">
-          Submit Answers
+          Wyślij odpowiedzi
         </button>
       </div>
     </div>
@@ -118,11 +118,11 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
         </svg>
       </div>
-      <h1 class="text-2xl font-bold text-white">Submitted!</h1>
-      <p class="text-white/60 text-base">Your answers have been recorded.<br>Great job today! 🎉</p>
+      <h1 class="text-2xl font-bold text-white">Wysłano!</h1>
+      <p class="text-white/60 text-base">Twoje odpowiedzi zostały zapisane.<br>Świetna robota! 🎉</p>
       <div class="flex flex-col items-center gap-2">
         <div id="countdown-success" class="w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-2xl font-bold text-emerald-300 pulse-ring">5</div>
-        <span class="text-white/40 text-sm">Closing…</span>
+        <span class="text-white/40 text-sm">Zamykam…</span>
       </div>
     </div>
   </div>
@@ -131,7 +131,7 @@
   <div id="overlay-loading" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center">
     <div class="flex flex-col items-center gap-4">
       <div class="spinner"></div>
-      <p class="text-white/70 text-sm font-medium">Submitting…</p>
+      <p class="text-white/70 text-sm font-medium">Trwa potwierdzenie danych…</p>
     </div>
   </div>
 
@@ -141,7 +141,7 @@
       <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
       </svg>
-      <span id="error-msg" class="text-sm font-medium">Error</span>
+      <span id="error-msg" class="text-sm font-medium">Błąd</span>
     </div>
   </div>
 
