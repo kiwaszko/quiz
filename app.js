@@ -3,6 +3,7 @@
 const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxPJgB9p0FKquzNqoZFyvtyvxxfzC1DT3EI2exZRAy5-_CvMWqJn7cw662Zj0h2v5ab/exec";
 const COUNTDOWN_SECONDS = 10;
 const DATA_FILES = ["questions.csv", "questions.tsv", "questions.xlsx"];
+const QUESTIONS_AMOUNT = 5;
 
 // ── TELEGRAM ────────────────────────────────────────────────────────
 const tg = window.Telegram?.WebApp;
@@ -170,7 +171,11 @@ function renderQuiz(questions) {
 
     const title = document.createElement("h3");
     title.className = "text-lg font-semibold text-white";
-    title.textContent = `${q.id}. ${q.question}`;
+    
+    // show only 1..N instead of real ID
+    title.textContent = `${q.displayId}. ${q.question}`;
+    //title.textContent = `${q.id}. ${q.question}`;
+    
     card.appendChild(title);
 
     // attach index BEFORE shuffle
@@ -286,11 +291,11 @@ async function handleSubmit() {
 
 // ── INIT ────────────────────────────────────────────────────────────
 async function init() {  
-  if (localStorage.getItem(todayKey())) {
+  /*if (localStorage.getItem(todayKey())) {
     showScreen(screenAlreadyDone);
     startCountdown(countdownAlready, closeMiniApp);
     return;
-  }
+  }*/
 
   try {
     const { response, filename } = await loadDataFile();
@@ -299,7 +304,17 @@ async function init() {
 
     if (!questions.length) throw new Error("Nie znaleziono pytań w pliku.");
 
-    renderQuiz(questions);
+    // shuffle + take only N questions
+    const selected = shuffle(questions).slice(0, QUESTIONS_AMOUNT);
+    
+    // add display index (1..N)
+    const indexed = selected.map((q, i) => ({
+      ...q,
+      displayId: i + 1
+    }));
+    
+    renderQuiz(indexed);
+    //renderQuiz(questions);
     showScreen(screenQuiz);
 
   } catch (err) {
