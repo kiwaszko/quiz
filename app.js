@@ -9,7 +9,7 @@ const tg = window.Telegram?.WebApp;
 if (tg) {
   tg.ready();
   tg.expand();
-  tg.enableClosingConfirmation(); // ✅ prevent accidental closing
+  tg.enableClosingConfirmation(); // prevent accidental closing
 }
 
 // ── DOM refs ────────────────────────────────────────────────────────
@@ -78,7 +78,7 @@ async function loadDataFile() {
       if (resp.ok) return { response: resp, filename: file };
     } catch (_) {}
   }
-  throw new Error("No quiz data file found.");
+  throw new Error("Nie znaleziono pliku kwizu 'questions'.");
 }
 
 async function parseDataFile(response, filename) {
@@ -137,11 +137,6 @@ function rowsToQuestions(rows) {
     questions.push({ id: row[0], question: row[1], options });
   }
   return questions;
-}
-
-// ── SHUFFLE ─────────────────────────────────────────────────────────
-function shuffle(arr) {
-  return [...arr].sort(() => Math.random() - 0.5);
 }
 
 // ── RENDER QUIZ (UPDATED: shuffle answers) ──────────────────────────
