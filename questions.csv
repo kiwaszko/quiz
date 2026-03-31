@@ -1,8 +1,55 @@
 id,question,answers
-1,"Jaka jest stolica Francji?",Paryż,Londyn,Berlin
-2,"Które z poniższych są językami programowania?",Python,HTML,Java,Photoshop,Rust
-3,"Wybierz wszystkie liczby pierwsze",2,4,7
-4,"Które planety znajdują się w Układzie Słonecznym?",Ziemia,Mars,Krypton,Wenus,Pluton,Naboo
-5,"Jakie kolory są w modelu RGB?",Czerwony,Żółty,Zielony,Niebieski
-6,"Które liczby są parzyste?",3,8,12,15,20,7,44
-7,"Wymień kontynent",Afryka,Europa
+34,"Co oznacza, że człowiek nie powinien zatrzymać się tylko na fizyczności?",Że istnieją głębsze poziomy życia,Że samo ciało nie wyjaśnia całości istnienia,Że ciało nie ma żadnej wartości,Że potrzebne jest szersze rozumienie człowieka
+35,Jaki sens ma w tych tekstach proces przejścia?,Zmianę jakości bycia,Zmianę poziomu rozumienia,Wyłącznie zmianę miejsca zamieszkania,Dojrzewanie do nowego stanu
+36,Co podkreśla „Czas Plazmy” w odniesieniu do człowieka?,Że człowiek może się rozwijać,Że człowiek jest częścią większego układu,Że człowiek jest odłączony od wszystkiego,Że człowiek może świadomie wpływać na własny proces
+37,Jaką rolę pełni zrozumienie w procesie Kreacji?,Pozwala dostrzec zależności,Otwiera drogę do świadomego działania,"Jest niepotrzebne, ważniejszy jest przypadek",Pomaga człowiekowi odnaleźć swoje miejsce
+38,Co w tych tekstach oznacza „powstawanie na nowo”?,Wewnętrzną przemianę,Narodziny nowej jakości człowieka,Powrót do identycznego starego stanu,Odbudowę na innym poziomie
+39,Dlaczego w tych artykułach tak ważna jest obserwacja?,Bo prowadzi do głębszego rozumienia,Bo pozwala łączyć wiedzę z doświadczeniem,Bo zastępuje całkowicie myślenie,Bo pomaga wychwycić proces zmian
+40,Co oznacza wejście w większą świadomość?,Poszerzenie percepcji,Lepsze rozumienie siebie i świata,Odrzucenie wszelkiej odpowiedzialności,Przejście do dojrzalszego sposobu bycia
+41,Jak przedstawiany jest związek człowieka z Wszechświatem?,Jako relacja żywa,Jako część większej całości,Jako całkowite odseparowanie,Jako dynamiczne współistnienie
+42,Co może blokować przemianę człowieka?,Brak zrozumienia,Przywiązanie wyłącznie do jednego poziomu patrzenia,Otwartość na wiedzę,Zamknięcie na proces
+43,Co wzmacnia możliwość wejścia w nowy poziom istnienia?,Wiedza,Świadomość,Uważność,Bezwładne trwanie bez refleksji
+44,Co w tych treściach oznacza „nowy stan”?,Inną jakość rozumienia,Głębsze połączenie z porządkiem istnienia,Tylko zmianę słownictwa,Przemianę wewnętrzną człowieka
+45,Jak najlepiej odczytać sens tych artykułów?,Jako zaproszenie do refleksji,Jako próbę zrozumienia procesów życia i Kreacji,Jako lekki tekst czysto rozrywkowy,Jako materiał do świadomego wejścia w głębsze znaczenia
+46,"Co oznacza, że człowiek jest częścią procesu?",Że nie stoi poza nim,Że uczestniczy w przemianie,Że nie ma żadnego wpływu,Że jego rozwój ma znaczenie
+47,W tych tekstach rozwój jest bardziej:,procesem,drogą,natychmiastowym cudem bez udziału człowieka,stopniowym dojrzewaniem
+48,"Co łączy duszę, wiedzę i przemianę?",Tworzą wspólną oś znaczeniową,Pokazują człowieka jako istotę zdolną do wzrostu,Są przypadkowym zlepkiem pojęć,Wskazują na kierunek dojrzewania
+49,Co jest jedną z najważniejszych cech czytania „Czasu Plazmy” ze zrozumieniem?,Umiejętność łączenia pojęć,Wyłapywanie sensu pod powierzchnią słów,Skupienie tylko na pojedynczych zdaniach bez całości,Odczytywanie kierunku przekazu
+50,Jaki ogólny przekaz płynie z tych artykułów?,Człowiek może się przemieniać,Wiedza i zrozumienie mają znaczenie,Istnienie ma głębszy porządek,Nie ma sensu zadawać pytań
+16,"Co oznacza stwierdzenie, że dusza staje się zgodna z wymiarem istnienia?",Że człowiek przypadkowo zmienia poglądy,Że następuje dostrojenie do określonego poziomu istnienia,Że ciało przestaje mieć znaczenie,Że świadomość i istnienie zaczynają działać w większej harmonii
+17,Co w przekazie „Czasu Plazmy” najczęściej uruchamia proces przemiany człowieka?,Wiedza,Zrozumienie,Mechaniczne powtarzanie cudzych słów,Świadome uczestnictwo w procesie
+18,Motyw Feniksa oznacza przede wszystkim:,odrodzenie,przejście przez przemianę,zniszczenie bez dalszego sensu,powstanie na nowym poziomie
+19,W treści numeru przemiana człowieka jest przedstawiana jako:,proces wewnętrzny,proces związany z polem i świadomością,jednorazowy przypadek bez znaczenia,etap dojrzewania
+20,Co jest jednym z ważnych tematów tych artykułów?,Relacja duszy i fizyczności,Zgodność człowieka z warunkiem istnienia,Rywalizacja handlowa między państwami,Wpływ wiedzy na zmianę człowieka
+21,Jaką rolę pełni wiedza w procesie wzrastania człowieka?,Jest narzędziem przemiany,Pozwala lepiej rozumieć proces Kreacji,"Jest zbędna, liczy się tylko emocja",Umożliwia świadome uczestnictwo w zmianie
+22,"Co sugeruje myśl, że człowiek może powstać jak Feniks z popiołu?",Że może przejść głęboką odnowę,Że koniec może być początkiem nowego etapu,Że każda strata oznacza definitywny kres,Że przemiana może prowadzić do nowej jakości istnienia
+23,W „Czasie Plazmy” człowiek jest ukazywany przede wszystkim jako:,istota połączona z większym porządkiem,istota zdolna do rozwoju,wyłącznie ciało biologiczne,uczestnik procesu Kreacji
+24,"Co wynika z połączenia pojęć duszy, wymiaru i istnienia?",Że życie ma również wymiar niefizyczny,Że rozwój wymaga dostrojenia,Że materia jest jedyną rzeczywistością,Że człowiek może przechodzić przez różne poziomy rozumienia
+25,Czym w tych tekstach najczęściej jest „wzniesienie”?,Rozszerzeniem świadomości,Wejściem w wyższe rozumienie,Ucieczką od rzeczywistości,Procesem przemiany człowieka
+26,Jak rozumiana jest relacja między duszą a fizycznością?,Jako konflikt bez możliwości pogodzenia,Jako wzajemne oddziaływanie,Jako część większego porządku życia,"Jako proces, który trzeba zrozumieć"
+27,Co w tych artykułach oznacza Kreacja?,Źródłowy porządek powstawania życia,Proces organizowania istnienia,Przypadkowy chaos bez kierunku,"Zasadę, z którą człowiek może wejść w większą zgodność"
+28,Co jest przeciwieństwem świadomego rozwoju według tonu tych tekstów?,Bierność,Niezrozumienie,Mechaniczne funkcjonowanie bez refleksji,Uważność
+29,Kiedy człowiek najbardziej zbliża się do przemiany?,Gdy zaczyna rozumieć proces,Gdy bierze udział świadomie,Gdy tylko patrzy z zewnątrz i nic nie zmienia,Gdy łączy wiedzę z obserwacją
+30,Co sugeruje pojęcie „zgodność z wymiarem istnienia”?,Harmonię,Dostrojenie,Oderwanie od wszystkiego,Wejście w odpowiedni stan
+31,W tych tekstach rozwój człowieka dokonuje się głównie przez:,zrozumienie,wiedzę,samo czekanie bez działania,świadome przechodzenie procesu
+32,"Jaką funkcję pełnią symbole i obrazy, takie jak Feniks?",Pomagają opisać proces przemiany,Nadają sens głębszym pojęciom,Służą wyłącznie ozdobie,Ułatwiają odczytanie duchowego przekazu
+33,Co można uznać za jeden z głównych wątków tych artykułów?,Odrodzenie człowieka,Przejście do nowego poziomu rozumienia,Handel międzynarodowy,Relacja między wiedzą a przemianą
+1,Jak nazywa się dział otwierający numer magazynu?,Od Redakcji,Wiedza Tygodnia,Fundamenty Plazmy,Głos Czytelników
+2,Który numer Spotkania Poszukiwaczy Wiedzy pojawia się w artykule o postrzeganiu zjawiska jako światła?,618,620,621,622
+3,Artykuł „Wpływ 3 i Atlas na życie na tej planecie” dotyczy którego spotkania?,619,620,621,622
+4,Co według widocznych stron łączy naukę i duszę w tym numerze magazynu?,Podejście czysto techniczne,"Przestrzeń refleksji, badań i obserwacji",Tylko historia starożytnych cywilizacji,Wyłącznie komentarze polityczne
+5,Które tematy pojawiają się w spisie treści?,MarkRay Corporation – istota i zadania,Jak osiągnąć długowieczność?,Wstęp do wiedzy o transmutacji,Podstawy księgowości energetycznej
+6,Jakie numery Spotkań Poszukiwaczy Wiedzy są widoczne w spisie treści?,617,618,621,625
+7,Jaki klimat przekazu najbardziej przebija z widocznych stron magazynu?,Sensacyjny i plotkarski,"Refleksyjny, badawczy i duchowo-naukowy",Humorystyczny i rozrywkowy,Typowo sprzedażowy
+8,W artykule o świetle pojawia się pytanie dotyczące:,ignorancji wobec prawdy,znaczenia człowieka we Wszechświecie,rosnącej manipulacji z braku zrozumienia Kreacji,cen energii w Europie
+9,Co sugeruje tytuł „Wpływ 3 i Atlas na życie na tej planecie”?,Temat ma związek z oddziaływaniem większych struktur lub układów,Artykuł dotyczy wyłącznie geografii szkolnej,Temat zahacza o wpływ na życie człowieka i planety,To tekst o historii atlasów papierowych
+10,Jakie elementy można zauważyć w budowie magazynu?,Wyraźny spis treści,Podział na konkretne artykuły i sekcje,Oznaczenie stron i numeru wydania,Losowy układ bez struktury
+11,Jaką funkcję pełni dział „Od Redakcji”?,Wprowadza czytelnika w charakter numeru,Buduje ton i intencję całego wydania,Zastępuje cały spis treści,"Nadaje kontekst temu, co czytelnik zobaczy dalej"
+12,Które z poniższych tematów są pokazane jako ważne w tym numerze?,Kreacja i natura człowieka,Relacja nauki i duszy,Zjawiska kosmiczne i plazmatyczne,Poradnik inwestowania na giełdzie
+13,Co można wywnioskować po samych tytułach artykułów?,Numer zachęca do myślenia i zadawania pytań,Numer ma charakter wyłącznie religijny,Numer próbuje łączyć obserwację z interpretacją zjawisk,Numer jest nastawiony na rozszerzanie perspektywy czytelnika
+14,Który temat brzmi jak wejście w bardziej zaawansowaną wiedzę?,Wstęp do wiedzy o transmutacji,Jak osiągnąć długowieczność?,Od Redakcji,Kultura: Nadchodząca wiosna i Irański Nowy Rok
+15,Jak najlepiej opisać ten numer „Czasu Plazmy”?,"Magazyn badający zależności między człowiekiem, kreacją i technologią plazmatyczną",Zwykły informator zakupowy,"Przestrzeń do refleksji nad nauką, świadomością i obserwacją",Gazetka z samymi newsami politycznymi
+51, "W grze o Pokój i Oświecenie Fundacji Keshe, co można znaleźć w słoikach/skrzynkach?", miód, plazmę, dżem, CC
+52, "W grze o Pokój i Oświecenie Fundacji Keshe, jaki kolor mają zasoby +10?", czerwony, żółty, czarny, zielony
+53. "W grze o Pokój i Oświecenie Fundacji Keshe, Jakie są sposoby podróży?", samochodem, transmutacją, samolotem, "łodzią podwodną"
+54. "W grze o Pokój i Oświecenie Fundacji Keshe, co daje Książka Życzeń (W) +10?", 10% Wiedzy, 10 punktów Wiedzy, 1 punkt Wiedzy, 1% Wiedzy
