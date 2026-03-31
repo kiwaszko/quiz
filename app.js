@@ -86,7 +86,69 @@ async function fetchWithRetry(url, options, retries = 2) {
     return fetchWithRetry(url, options, retries - 1);
   }
 }
+// ── PLASMA CANVAS ─────────────────────────────────────────────────────
+function plasmaBall(){
+    var c=document.getElementById('plasma');
+    var ctx=c.getContext('2d');
+    var W=c.width, H=c.height, hw=W/2, hh=H/2, R=hw;
+    var img=ctx.createImageData(W,H);
+    var d=img.data;
 
+    // pre-compute distance & mask
+    var dist=new Float32Array(W*H);
+    var mask=new Float32Array(W*H);
+    for(var y=0;y<H;y++) for(var x=0;x<W;x++){
+      var dx=x-hw, dy=y-hh;
+      var r=Math.sqrt(dx*dx+dy*dy);
+      dist[y*W+x]=r;
+      mask[y*W+x]=Math.max(0, 1 - Math.pow(r/R, 3));
+    }
+
+    function palette(t){
+      // indigo → violet → cyan loop
+      t=t%1; if(t<0) t+=1;
+      var r,g,b;
+      if(t<0.33){var s=t/0.33;       r=99+s*40;  g=102-s*20; b=241;}
+      else if(t<0.66){var s=(t-.33)/.33; r=139-s*80; g=82+s*140; b=241-s*40;}
+      else{var s=(t-.66)/.34;           r=59+s*40;  g=222-s*120;b=201+s*40;}
+      return [r|0,g|0,b|0];
+    }
+
+    var sin=Math.sin, cos=Math.cos;
+
+    function draw(time){
+      var t=time*0.001;
+      for(var y=0;y<H;y++){
+        var ny=y/H*4;
+        for(var x=0;x<W;x++){
+          var i=y*W+x;
+          if(mask[i]<0.01){d[i*4+3]=0;continue;}
+          var nx=x/W*4;
+
+          var v=0;
+          v+=sin(nx*2.3+t*1.1)+cos(ny*2.1-t*0.9);
+          v+=sin((nx*1.4-ny*1.8+t*0.7)*1.3);
+          v+=sin(dist[i]*0.06-t*1.5)*1.2;
+          v+=cos(nx*1.1+sin(ny*0.8+t*0.6))*0.9;
+          v+=sin((nx+ny)*1.5+t*1.2)*0.7;
+
+          v=v*0.1+0.5;
+          v=v-Math.floor(v);
+
+          var rgb=palette(v+t*0.05);
+          var a=mask[i];
+          var idx=i*4;
+          d[idx]=rgb[0];
+          d[idx+1]=rgb[1];
+          d[idx+2]=rgb[2];
+          d[idx+3]=(a*255)|0;
+        }
+      }
+      ctx.putImageData(img,0,0);
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+}
 // ── FILE LOADING ────────────────────────────────────────
 async function loadDataFile() {
   for (const file of DATA_FILES) {
@@ -313,6 +375,7 @@ async function init() {
     //if (!questions.length) throw new Error("Nie znaleziono pytań w pliku.");
     if (questions.length < QUESTIONS_AMOUNT) {
       showScreen(screenNoQuiz);
+      plasmaBall();
       startCountdown(countdownNoQuiz, closeMiniApp);
       return;
     }
