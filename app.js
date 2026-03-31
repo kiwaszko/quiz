@@ -35,17 +35,30 @@ function showScreen(el) {
   el.classList.remove("hidden");
 }
 
+function triggerPulse(el) {
+  el.classList.remove("pulse-ring");
+  void el.offsetWidth; // force reflow (important!)
+  el.classList.add("pulse-ring");
+}
+
 function startCountdown(el, cb) {
-  let sec = COUNTDOWN_SECONDS;
-  el.textContent = sec;
+  const end = Date.now() + COUNTDOWN_SECONDS * 1000;
+  let lastSec = null;
+
   const iv = setInterval(() => {
-    sec--;
-    el.textContent = sec;
-    if (sec <= 0) {
+    const remaining = Math.max(0, Math.ceil((end - Date.now()) / 1000));
+
+    if (remaining !== lastSec) {
+      el.textContent = remaining;
+      triggerPulse(el); // pulse sync
+      lastSec = remaining;
+    }
+
+    if (remaining <= 0) {
       clearInterval(iv);
       cb();
     }
-  }, 1000);
+  }, 100);
 }
 
 function closeMiniApp() {
