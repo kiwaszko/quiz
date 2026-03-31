@@ -16,11 +16,13 @@ if (tg) {
 // ── DOM refs ────────────────────────────────────────────────────────
 const screenAlreadyDone = document.getElementById("screen-already-done");
 const screenQuiz        = document.getElementById("screen-quiz");
+const screenNoQuiz      = document.getElementById("screen-no-quiz");
 const screenSuccess     = document.getElementById("screen-success");
 const overlay           = document.getElementById("overlay-loading");
 const quizContainer     = document.getElementById("quiz-container");
 const submitBtn         = document.getElementById("btn-submit");
 const countdownAlready  = document.getElementById("countdown-already");
+const countdownNoQuiz   = document.getElementById("countdown-no-quiz");
 const countdownSuccess  = document.getElementById("countdown-success");
 const errorToast        = document.getElementById("error-toast");
 const errorMsg          = document.getElementById("error-msg");
@@ -32,7 +34,8 @@ function todayKey() {
 }
 
 function showScreen(el) {
-  [screenAlreadyDone, screenQuiz, screenSuccess].forEach(s => s.classList.add("hidden"));
+  [screenAlreadyDone, screenQuiz, screenSuccess, screenNoQuiz]
+    .forEach(s => s.classList.add("hidden"));
   el.classList.remove("hidden");
 }
 
@@ -307,8 +310,13 @@ async function init() {
     const rows = await parseDataFile(response, filename);
     const questions = rowsToQuestions(rows);
 
-    if (!questions.length) throw new Error("Nie znaleziono pytań w pliku.");
-
+    //if (!questions.length) throw new Error("Nie znaleziono pytań w pliku.");
+    if (questions.length < QUESTIONS_AMOUNT) {
+      showScreen(screenNoQuiz);
+      startCountdown(countdownNoQuiz, closeMiniApp);
+      return;
+    }
+    
     // shuffle + take only N questions
     const selected = shuffle(questions).slice(0, QUESTIONS_AMOUNT);
     
