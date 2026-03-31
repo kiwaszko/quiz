@@ -1,7 +1,7 @@
 
 // ── CONFIG ──────────────────────────────────────────────────────────
 const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxPJgB9p0FKquzNqoZFyvtyvxxfzC1DT3EI2exZRAy5-_CvMWqJn7cw662Zj0h2v5ab/exec";
-const COUNTDOWN_SECONDS = 5;
+const COUNTDOWN_SECONDS = 10;
 const DATA_FILES = ["questions.csv", "questions.tsv", "questions.xlsx"];
 
 // ── TELEGRAM ────────────────────────────────────────────────────────
