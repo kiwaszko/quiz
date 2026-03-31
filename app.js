@@ -195,7 +195,7 @@ function renderQuiz(questions) {
 
     quizContainer.appendChild(card);
   });
-
+}
 // ── VALIDATION (NEW) ────────────────────────────────────────────────
 function allQuestionsAnswered() {
   return quizData.every(q =>
