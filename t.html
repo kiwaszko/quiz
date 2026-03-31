@@ -5,9 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Telegram Mini App InitData Viewer</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #1a1a2e; color: #f0f0f0; padding: 20px; }
+    body { 
+      font-family: Arial, sans-serif; 
+      background: #1a1a2e; 
+      color: #f0f0f0; 
+      padding: 20px; 
+    }
     h1 { color: #818cf8; }
-    pre { background: #0f0c29; padding: 15px; border-radius: 8px; overflow-x: auto; }
+    pre { 
+      background: #0f0c29; 
+      padding: 15px; 
+      border-radius: 8px; 
+      overflow-x: auto; 
+    }
+    .error { color: #ff6b6b; }
   </style>
 </head>
 <body>
@@ -19,31 +30,44 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
     const tg = window.Telegram?.WebApp;
+    const infoDiv = document.getElementById("info");
 
     function displayInitData() {
       if (!tg) {
-        document.getElementById("info").innerText = "Telegram WebApp object not found.";
+        infoDiv.innerHTML = '<span class="error">Telegram WebApp object not found. Open this page from a Telegram Web App.</span>';
         return;
       }
 
-      tg.ready();
+      tg.ready(); // signal readiness to Telegram
 
-      const infoDiv = document.getElementById("info");
+      let elapsed = 0;
+      const interval = 100; // ms
+      const maxWait = 5000; // max 5 seconds
 
-      const data = {
-        initData: tg.initData,
-        initDataUnsafe: tg.initDataUnsafe,
-        user: tg.initDataUnsafe?.user || null,
-        receiver: tg.initDataUnsafe?.receiver || null,
-        chat: tg.initDataUnsafe?.chat || null,
-        chat_type: tg.initDataUnsafe?.chat_type || null,
-        chat_instance: tg.initDataUnsafe?.chat_instance || null,
-        start_param: tg.initDataUnsafe?.start_param || null,
-        can_send_after: tg.initDataUnsafe?.can_send_after || null,
-        signature: tg.initDataUnsafe?.signature || null
-      };
+      function tryLoad() {
+        if (tg.initDataUnsafe) {
+          const data = {
+            initData: tg.initData,
+            initDataUnsafe: tg.initDataUnsafe,
+            user: tg.initDataUnsafe.user || null,
+            receiver: tg.initDataUnsafe.receiver || null,
+            chat: tg.initDataUnsafe.chat || null,
+            chat_type: tg.initDataUnsafe.chat_type || null,
+            chat_instance: tg.initDataUnsafe.chat_instance || null,
+            start_param: tg.initDataUnsafe.start_param || null,
+            can_send_after: tg.initDataUnsafe.can_send_after || null,
+            signature: tg.initDataUnsafe.signature || null
+          };
+          infoDiv.innerHTML = "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
+        } else if (elapsed < maxWait) {
+          elapsed += interval;
+          setTimeout(tryLoad, interval);
+        } else {
+          infoDiv.innerHTML = '<span class="error">initData did not load in time. Make sure you opened this via a Telegram Web App button.</span>';
+        }
+      }
 
-      infoDiv.innerHTML = "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
+      tryLoad();
     }
 
     document.addEventListener("DOMContentLoaded", displayInitData);
