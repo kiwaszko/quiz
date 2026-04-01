@@ -329,7 +329,7 @@ async function handleSubmit() {
   // Show loading overlay
   overlay.classList.remove("hidden");
 
-  const payload = `results=${encodeURIComponent(resultString)}&initData=${encodeURIComponent(tg ? tg.initData : "dev_mode_no_telegram")}`;
+  const payload = `action=submitQuiz&results=${encodeURIComponent(resultString)}&initData=${encodeURIComponent(tg ? tg.initData : "dev_mode_no_telegram")}`;
 
   try {
     const res = await fetch(GOOGLE_APPS_SCRIPT_URL, {
