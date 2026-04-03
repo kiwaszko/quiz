@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -13,118 +13,289 @@
       min-height: 100vh;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
-
-    /* spinner */
+    p { font-size: 15px; color: #fff; }
+    .wave-word span { display: inline-block; transition: transform 0.3s ease; }
+    @keyframes wave-letter {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
     .spinner {
-      width: 56px;
-      height: 56px;
+      width: 56px; height: 56px;
       border: 5px solid rgba(255,255,255,0.2);
       border-top-color: #818cf8;
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* fade-in */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .animate-fade-in-up {
-      animation: fadeInUp 0.5s ease-out both;
-    }
-
-    /* pulse ring on countdown */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in-up { animation: fadeInUp 0.5s ease-out both; }
     @keyframes pulseRing {
-      0%   { box-shadow: 0 0 0 0 rgba(129,140,248,0.5); }
-      70%  { box-shadow: 0 0 0 16px rgba(129,140,248,0); }
+      0% { box-shadow: 0 0 0 0 rgba(129,140,248,0.5); }
+      70% { box-shadow: 0 0 0 16px rgba(129,140,248,0); }
       100% { box-shadow: 0 0 0 0 rgba(129,140,248,0); }
     }
-    .pulse-ring {
-      animation: pulseRing 1s ease-out;
+    .pulse-ring { animation: pulseRing 1s ease-out; }
+    .orb-ring {
+      width: 120px; height: 120px; margin: 0 auto 24px;
+      border-radius: 50%; border: 2px solid #818cf8;
+      background: rgba(99,102,241,.12); overflow: hidden; position: relative;
+      box-shadow: 0 0 28px rgba(99,102,241,.25);
     }
-
-    .wrap{animation:fadeInUp .5s ease-out both;text-align:center}
-    .orb-ring{
-      width:120px;height:120px;margin:0 auto 24px;
-      border-radius:50%;border:2px solid #818cf8;
-      background:rgba(99,102,241,.12);
-      overflow:hidden;position:relative;
-      box-shadow:0 0 28px rgba(99,102,241,.25);
+    .orb-ring canvas { width: 100%; height: 100%; display: block; }
+    #screen-no-quiz h1 { color: #fff; font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; }
+    #screen-no-quiz p { color: rgba(255,255,255,.55); font-size: 1rem; line-height: 1.6; margin-bottom: 28px; }
+    @keyframes slideIn { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .toast-slide { animation: slideIn 0.3s ease-out; }
+    .answer-card {
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.75rem;
+      margin-bottom: 0.25rem;
+      color: #fff;
+      font-size: 0.95rem;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 12px rgba(0,0,0,0.2);
+      transition: background 0.3s, box-shadow 0.3s;
+      background: rgba(255,255,255,0.05);
     }
-    .orb-ring canvas{width:100%;height:100%;display:block}
-    h1{color:#fff;font-size:1.5rem;font-weight:700;margin-bottom:8px}
-    p{color:rgba(255,255,255,.55);font-size:1rem;line-height:1.6;margin-bottom:28px}
-    .cd-ring{
-      width:64px;height:64px;margin:0 auto 8px;
-      border-radius:50%;border:2px solid #818cf8;
-      background:rgba(99,102,241,.15);
-      display:flex;align-items:center;justify-content:center;
-      font-size:1.5rem;font-weight:700;color:#a5b4fc;
-      animation:pulseRing 1s ease-out;
-    }
-    .cd-ring.done{border-color:#34d399;color:#34d399}
-    .sub{color:rgba(255,255,255,.35);font-size:.85rem}
-
-    /* toast slide */
-    @keyframes slideIn {
-      from { transform: translateY(-100%); opacity: 0; }
-      to   { transform: translateY(0); opacity: 1; }
-    }
-    .toast-slide {
-      animation: slideIn 0.3s ease-out;
-    }
-
-    
-
-    /* hide scrollbar but keep scroll */
+    .answer-card.correct { background: rgba(52,211,153,0.4); box-shadow: 0 0 12px rgba(52,211,153,0.4); }
+    .answer-card.selected-correct { background: rgba(52,211,153,0.7); box-shadow: 0 0 16px rgba(52,211,153,0.5); }
+    .answer-card.selected-incorrect { background: rgba(239,68,68,0.7); box-shadow: 0 0 16px rgba(239,68,68,0.5); }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    /* ── Reward block ── */
+    .reward-block {
+      background: linear-gradient(135deg, rgba(99,102,241,0.18) 0%, rgba(168,85,247,0.14) 100%);
+      border: 1.5px solid rgba(129,140,248,0.35);
+      border-radius: 1.25rem;
+      padding: 1.25rem 1.25rem 1rem;
+    }
+    .reward-input {
+      width: 100%;
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(129,140,248,0.3);
+      border-radius: 0.875rem;
+      padding: 0.75rem 1rem;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-sizing: border-box;
+    }
+    .reward-input:focus { border-color: #818cf8; box-shadow: 0 0 0 3px rgba(129,140,248,0.2); }
+    .reward-input::placeholder { color: rgba(255,255,255,0.35); }
+    .reward-input:disabled { opacity: 0.5; cursor: not-allowed; }
+    /* ── Username badge ── */
+    .username-badge {
+      display: inline-flex;
+      align-items: center;
+      transform: translateY(15px);
+      gap: 0.5rem;
+    
+      background: rgba(99,102,241,0.25);
+      border: 1.5px solid rgba(129,140,248,0.55);
+      border-radius: 999px;
+    
+      padding: 0.35rem 0.9rem 0.35rem 0.7rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+    
+      color: #c7d2fe;
+    
+      cursor: default;
+      vertical-align: middle;
+      margin-left: auto;
+    }
+    .username-badge svg {
+      width: 14px;
+      height: 14px;
+    }
+    /* clickable/editable badge */
+    .username-badge.editable { cursor: pointer; transition: background 0.2s; }
+    .username-badge.editable:hover { background: rgba(99,102,241,0.38); }
+    /* ── Buttons ── */
+    .btn-send {
+      background: linear-gradient(90deg, #6366f1, #a855f7);
+      border: none;
+      border-radius: 0.875rem;
+      padding: 0.72rem 1.3rem;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s, background 0.3s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .btn-send:active { transform: scale(0.97); }
+    .btn-send:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn-send.sent {
+      background: linear-gradient(90deg, #059669, #10b981);
+    }
+    .btn-close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border-radius: 0.875rem;
+      background: rgba(255,255,255,0.06);
+      border: 1.5px solid rgba(255,255,255,0.13);
+      color: rgba(255,255,255,0.55);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .btn-close:hover { background: rgba(255,255,255,0.11); color: #fff; border-color: rgba(255,255,255,0.28); }
+    .btn-close:active { transform: scale(0.98); }
+    /* ── Edit username modal ── */
+    #edit-username-modal {
+      display: none;
+      position: fixed; inset: 0; z-index: 60;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
+      padding: 1.5rem;
+    }
+    #edit-username-modal.open { display: flex; }
+    .modal-card {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+      border: 1.5px solid rgba(129,140,248,0.35);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      width: 100%;
+      max-width: 420px;
+      animation: fadeInUp 0.3s ease-out both;
+    }
+    /* ── No-reward info ── */
+    .no-reward-block {
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 1.25rem;
+      padding: 1rem 1.25rem;
+    }
   </style>
 </head>
 <body class="no-scrollbar">
-
   <!-- ─── SCREEN: ALREADY COMPLETED ─────────────────────────────── -->
-  <div id="screen-already-done" class="hidden fixed inset-0 flex items-center justify-center p-6">
-    <div class="animate-fade-in-up text-center space-y-6">
-      <div class="w-24 h-24 mx-auto rounded-full bg-green-500/20 border-2 border-green-400 flex items-center justify-center">
-        <svg class="w-12 h-12 text-green-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-        </svg>
+  <div id="screen-already-done" class="hidden min-h-screen flex flex-col text-white">
+    <!-- Sticky Header -->
+    <div class="sticky top-0 z-10 backdrop-blur-xl bg-white/5 border-b border-white/10 px-5 py-4">
+      <div class="max-w-lg mx-auto flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-green-500/20 border-2 border-green-400 flex items-center justify-center flex-shrink-0">
+          <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+          </svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-1 flex-wrap">
+            <h1 class="text-lg font-bold leading-tight">Kwiz Ukończony!</h1>
+            <!-- Username badge – shown only when username is saved -->
+            <span id="header-username-badge" class="username-badge editable " style="display: none;" title="Kliknij, aby zmienić username">
+              <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+              <span id="header-username-text"></span>
+              <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a2 2 0 01-1.414.586H9v-2a2 2 0 01.586-1.414z"/>
+              </svg>
+            </span>
+          </div>
+          <p class="text-xs text-white/50">Twój wynik: <span id="completed-score" class="font-semibold text-white/80">0%</span></p>
+        </div>
       </div>
-      <h1 class="text-2xl font-bold text-white">Kwiz Ukończony!</h1>
-      <p class="text-white/60 text-base">Kwiz został już dzisiaj rozwiązany.<br>Zapraszamy następnym razem!</p>
-      <div class="flex flex-col items-center gap-2">
-        <div id="countdown-already" class="w-16 h-16 rounded-full bg-indigo-500/20 border-2 border-indigo-400 flex items-center justify-center text-2xl font-bold text-indigo-300 pulse-ring">5</div>
-        <span class="text-white/40 text-sm">Zamykam…</span>
+    </div>
+    <!-- Scrollable Content -->
+    <div class="flex-1 px-4 py-5 overflow-y-auto space-y-5">
+      <!-- REWARD BLOCK (shown when score >= MIN_REWARD_SCORE and username NOT yet saved) -->
+      <div id="reward-login-container" class="hidden max-w-lg mx-auto reward-block animate-fade-in-up">
+        <!-- Trophy + Title -->
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-yellow-500/20 border border-yellow-400/40 flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M5 3h14v2.5c0 3.5-2.5 6.5-5.5 7.4V15h2.5l1 4H7l1-4h2.5v-2.1C7.5 12 5 9 5 5.5V3z"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-base font-bold text-white leading-tight">Odbierz nagrodę!</h2>
+            <p class="text-xs text-white/50 leading-tight">Twój wynik kwalifikuje Cię do nagrody</p>
+          </div>
+        </div>
+        <div class="border-t border-white/10 mb-4"></div>
+        <p class="text-sm text-white/65 leading-relaxed mb-4">
+          Podaj nazwę użytkownika w grze
+          <span class="font-semibold text-white">Oświecenie i Pokój</span>
+          Fundacji Keshe, aby otrzymać nagrodę:
+        </p>
+        <!-- Input row -->
+        <div class="flex gap-2 items-stretch">
+          <input
+            id="reward-login-input"
+            type="text"
+            placeholder="username (nazwa użytkownika)"
+            class="reward-input flex-1"
+            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+          />
+          <button id="reward-login-send-btn" class="btn-send">Wyślij</button>
+        </div>
+        <p id="reward-status-msg" class="hidden text-xs mt-2 text-center font-medium"></p>
+      </div>
+      <!-- NO-REWARD INFO (shown when score < MIN_REWARD_SCORE) -->
+      <div id="no-reward-info" class="hidden max-w-lg mx-auto no-reward-block animate-fade-in-up">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
+            <svg class="w-4 h-4 text-white/40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <p id="no-reward-text" class="text-xs text-white/40 leading-relaxed">Wynik od … do 100 kwalifikuje do nagrody.</p>
+        </div>
+      </div>
+      <!-- QUESTIONS & RESULTS -->
+      <div id="completed-quiz-container" class="max-w-lg mx-auto space-y-4 animate-fade-in-up"></div>
+      <!-- CLOSE BUTTON at bottom -->
+      <div class="max-w-lg mx-auto pb-8">
+        <button id="btn-close-already-done" class="btn-close">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+          Zamknij
+        </button>
       </div>
     </div>
   </div>
-
   <!-- ─── SCREEN: QUIZ ──────────────────────────────────────────── -->
   <div id="screen-quiz" class="hidden min-h-screen flex flex-col">
-    <!-- header -->
     <div class="sticky top-0 z-10 backdrop-blur-xl bg-white/5 border-b border-white/10 px-5 py-4">
       <div class="max-w-lg mx-auto flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-indigo-500 flex items-center justify-center">
+        <div class="w-10 h-10 rounded-xl bg-indigo-500 flex items-center justify-center flex-shrink-0">
           <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
           </svg>
         </div>
-        <div>
-          <h1 class="text-lg font-bold text-white leading-tight">Kwiz</h1>
-          <p class="text-xs text-white/50">Wybierz wszystkie poprawne odpowiedzi</p>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-1 flex-wrap">
+            <h1 class="text-lg font-bold text-white leading-tight">Kwiz</h1>
+            <!-- Username badge in quiz header -->
+            <span id="quiz-header-username-badge" class="username-badge editable" style="display: none;" title="Kliknij, aby zmienić username">
+              <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+              <span id="quiz-header-username-text"></span>
+              <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a2 2 0 01-1.414.586H9v-2a2 2 0 01.586-1.414z"/>
+              </svg>
+            </span>
+          </div>
+          <p class="text-xs text-white/50">
+            Pytania mogą mieć <span class="wave-word">wiele</span> odpowiedzi
+          </p>
         </div>
       </div>
     </div>
-
-    <!-- questions container -->
     <div class="flex-1 px-4 py-5">
       <div id="quiz-container" class="max-w-lg mx-auto space-y-4 animate-fade-in-up"></div>
-
-      <!-- submit button -->
       <div class="max-w-lg mx-auto mt-6 pb-8">
         <button id="btn-submit"
           class="w-full py-4 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-bold text-lg shadow-lg shadow-indigo-500/30 active:scale-[0.98] transition-all duration-150">
@@ -133,7 +304,6 @@
       </div>
     </div>
   </div>
-
   <!-- ─── SCREEN: SUCCESS ───────────────────────────────────────── -->
   <div id="screen-success" class="hidden fixed inset-0 flex items-center justify-center p-6">
     <div class="animate-fade-in-up text-center space-y-6">
@@ -150,7 +320,6 @@
       </div>
     </div>
   </div>
-
   <!-- ─── OVERLAY: LOADING SPINNER ──────────────────────────────── -->
   <div id="overlay-loading" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center">
     <div class="flex flex-col items-center gap-4">
@@ -158,7 +327,6 @@
       <p class="text-white/70 text-sm font-medium">Trwa potwierdzanie danych…</p>
     </div>
   </div>
-
   <!-- ─── ERROR TOAST ───────────────────────────────────────────── -->
   <div id="error-toast" class="hidden fixed top-4 left-4 right-4 z-50 toast-slide">
     <div class="max-w-lg mx-auto bg-red-500/90 backdrop-blur-sm text-white px-5 py-3 rounded-xl shadow-lg flex items-center gap-3">
@@ -168,29 +336,51 @@
       <span id="error-msg" class="text-sm font-medium">Błąd</span>
     </div>
   </div>
-
   <!-- ─── SCREEN: NO QUIZ TODAY ─────────────────────────────────── -->
-<div id="screen-no-quiz" class="hidden fixed inset-0 flex items-center justify-center p-6">
-  <div class="animate-fade-in-up text-center space-y-6">
-    <!--<div class="w-24 h-24 mx-auto rounded-full bg-indigo-500/20 border-2 border-indigo-400 flex items-center justify-center">
-      <svg class="w-12 h-12 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L15 12l-5.25-5"/>
-      </svg>
-    </div>
-    -->
-    <div class="orb-ring"><canvas id="plasma" width="240" height="240"></canvas></div>
-    <h1 class="text-2xl font-bold text-white">Brak kwizu</h1>
-    <p class="text-white/60 text-base">
-      Dzisiaj kwizu nie ma.<br>
-      Poinformujemy o kolejnym w przyszłości.
-    </p>
-    <div class="flex flex-col items-center gap-2">
-      <div id="countdown-no-quiz" class="w-16 h-16 rounded-full bg-indigo-500/20 border-2 border-indigo-400 flex items-center justify-center text-2xl font-bold text-indigo-300 pulse-ring">5</div>
-      <span class="text-white/40 text-sm">Zamykam…</span>
+  <div id="screen-no-quiz" class="hidden fixed inset-0 flex items-center justify-center p-6">
+    <div class="animate-fade-in-up text-center space-y-6">
+      <div class="orb-ring"><canvas id="plasma" width="240" height="240"></canvas></div>
+      <h1 class="text-2xl font-bold text-white">Brak kwizu</h1>
+      <p class="text-white/60 text-base">
+        Dzisiaj kwizu nie ma.<br>
+        Następny kwiz w dniu: <span id="next-quiz-date"></span>
+      </p>
+      <div class="flex flex-col items-center gap-2">
+        <div id="countdown-no-quiz" class="w-16 h-16 rounded-full bg-indigo-500/20 border-2 border-indigo-400 flex items-center justify-center text-2xl font-bold text-indigo-300 pulse-ring">5</div>
+        <span class="text-white/40 text-sm">Zamykam…</span>
+      </div>
     </div>
   </div>
-</div>
-
+  <!-- ─── EDIT USERNAME MODAL ───────────────────────────────────── -->
+  <div id="edit-username-modal">
+    <div class="modal-card">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-xl bg-indigo-500/30 border border-indigo-400/40 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-indigo-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a2 2 0 01-1.414.586H9v-2a2 2 0 01.586-1.414z"/>
+          </svg>
+        </div>
+        <div>
+          <h2 class="text-base font-bold text-white">Zmień nazwę użytkownika</h2>
+          <p class="text-xs text-white/50">Gra: Oświecenie i Pokój</p>
+        </div>
+        
+      </div>
+      <div class="border-t border-white/10 mb-4"></div>
+      <input
+        id="edit-username-input"
+        type="text"
+        placeholder="Nowa nazwa użytkownika"
+        class="reward-input mb-3"
+        autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+      />
+      <p id="edit-status-msg" class="hidden text-xs mb-3 text-center font-medium"></p>
+      <div class="flex gap-2">
+        <button id="edit-modal-cancel" class="btn-close flex-1" style="width:auto">Anuluj</button>
+        <button id="edit-modal-save" class="btn-send flex-1">Zapisz</button>
+      </div>
+    </div>
+  </div>
   <script src="app.js"></script>
 </body>
 </html>
