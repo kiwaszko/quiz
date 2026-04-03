@@ -7,7 +7,7 @@ const QUESTIONS_AMOUNT = 5;
 const TMP_INIT_DATA = "user=%7B%22id%22%3A7728607533%2C%22first_name%22%3A%22Kamil%22%2C%22last_name%22%3A%22Iwaszko%22%2C%22language_code%22%3A%22pl%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FO4RrGWEH3wR_u5yQWebWgybzkR_UfS3kguAn-P2lmmP4c5LeVmDb7oEi4-u5kvlt.svg%22%7D&chat_instance=-6341672468787578078&chat_type=sender&auth_date=1775057988&signature=PNq2-Gyd8xZ2hyH6Bsj5dkS4YZqnJT2lxil1g5xHbvLVKISKoPmI7PXLAIB0f5ukP5esZV4kXv5G11Ez2p7gDA&hash=4eb7b4771035f591d1165c8883e1cc1ce351963641b8f5cb84e2d652fe7df132";
 
 const MIN_REWARD_SCORE  = 75;
-const QUIZ_DAYS         = [3, 5];
+const QUIZ_DAYS         = [3, 6];
 
 // ── LocalStorage keys ────────────────────────────────────────────────
 const LS_GAME_USERNAME = "kwiz_game_username";
