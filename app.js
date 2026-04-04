@@ -443,9 +443,12 @@ const displayCompletedQuiz = async () => {
   const map = {};
   questions.forEach(q => { map[q.id] = q; });
 
+  const savedDate = localStorage.getItem("last_quiz_date");
+  const quizDate  = savedDate ? new Date(savedDate) : new Date();
+  
   const dateEl = document.createElement("div");
   dateEl.className   = "text-white/60 text-center text-sm";
-  dateEl.textContent = `Quiz z dnia: ${formatDate(new Date())}`;
+  dateEl.textContent = `Kwiz z dnia: ${formatDate(quizDate)}`;
   container.appendChild(dateEl);
 
   result.forEach(q => {
@@ -600,6 +603,7 @@ const handleSubmit = async () => {
     localStorage.setItem(LS_LAST_CORRECT, JSON.stringify(data.scored));
     localStorage.setItem(LS_LAST_SCORE,   data.score);
     localStorage.setItem(LS_LAST_DAY,     currentDay);
+    localStorage.setItem("last_quiz_date", new Date().toISOString());
 
     showScreen(DOM.screens.alreadyDone);
     await displayCompletedQuiz();
@@ -661,6 +665,7 @@ const init = async () => {
   }
 
   // 2. Not a quiz day — show last quiz if recent
+  /*
   if (lastQuizDay && QUIZ_DAYS.includes(lastQuizDay)) {
     if (shouldShowLastQuiz(lastQuizDay, currentDay)) {
       showScreen(DOM.screens.alreadyDone);
@@ -668,7 +673,15 @@ const init = async () => {
       return;
     }
   }
-
+ */
+  
+  // 2. Not a quiz day alternative — show only when quiz day
+  if (lastQuizDay && currentDay === lastQuizDay) {
+    showScreen(DOM.screens.alreadyDone);
+    await displayCompletedQuiz();
+    return;
+  }
+  
   // 3. No quiz, no recent results
   showScreen(DOM.screens.noQuiz);
   plasmaBall();
