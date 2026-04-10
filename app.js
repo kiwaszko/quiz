@@ -653,7 +653,9 @@ const handleSubmit = async () => {
       ).map(cb => Number(cb.value))
     }));
 
-    localStorage.setItem(getQuizKey(currentDay), "true");
+    // no expiry, bug if completed on day of the week it will be locked forever
+    //localStorage.setItem(getQuizKey(currentDay), "true");
+    setWithExpiry(getQuizKey(currentDay), true);
     localStorage.setItem(LS_LAST_RESULT,  JSON.stringify(results));
     localStorage.setItem(LS_LAST_CORRECT, JSON.stringify(data.scored));
     localStorage.setItem(LS_LAST_SCORE,   data.score);
@@ -694,7 +696,7 @@ const shouldShowLastQuiz = (lastQuizDay, currentDay) => {
 // ════════════════════════════════════════════════════════════════════
 const init = async () => {
   const currentDay  = getCurrentDayOfWeek();
-  // no expiry
+  // no expiry, change if you need to show completed quiz on no-quiz days  
   //const lastQuizDay = Number(localStorage.getItem(LS_LAST_DAY) || 0);
   const lastQuizDay = getWithExpiry(LS_LAST_DAY);
 
@@ -703,7 +705,9 @@ const init = async () => {
 
   // 1. Quiz day
   if (QUIZ_DAYS.includes(currentDay)) {
-    if (localStorage.getItem(getQuizKey(currentDay))) {
+    if (getWithExpiry(getQuizKey(currentDay))) {
+    // no expiry bbg if completed once on some day it will be locked forever
+    // if (localStorage.getItem(getQuizKey(currentDay))) {
       showScreen(DOM.screens.alreadyDone);
       await displayCompletedQuiz();
       return;
