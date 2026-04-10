@@ -139,6 +139,59 @@ function plasmaBall(canvasId = "plasma") {
 // ════════════════════════════════════════════════════════════════════
 const shuffle = (arr) => [...arr].sort(() => Math.random() - 0.5);
 
+const getWarsawMidnightExpiry = () => {
+  const now = new Date();
+
+  const formatter = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Warsaw",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  });
+
+  const parts = formatter.formatToParts(now);
+
+  const year  = parts.find(p => p.type === "year").value;
+  const month = parts.find(p => p.type === "month").value;
+  const day   = parts.find(p => p.type === "day").value;
+
+  // Create Warsaw midnight safely (next day)
+  const midnightWarsaw = new Date(`${year}-${month}-${day}T00:00:00Z`);
+
+  // Add 1 day → next midnight
+  midnightWarsaw.setUTCDate(midnightWarsaw.getUTCDate() + 1);
+
+  return midnightWarsaw.getTime();
+};
+
+const getWithExpiry = (key) => {
+  const raw = localStorage.getItem(key);
+  if (!raw) return null;
+
+  try {
+    const data = JSON.parse(raw);
+
+    if (!data.expiry || Date.now() > data.expiry) {
+      localStorage.removeItem(key);
+      return null;
+    }
+
+    return data.value;
+  } catch {
+    localStorage.removeItem(key);
+    return null;
+  }
+};
+
+const setWithExpiry = (key, value) => {
+  const data = {
+    value,
+    expiry: getWarsawMidnightExpiry()
+  };
+
+  localStorage.setItem(key, JSON.stringify(data));
+};
+
 const getCurrentDayOfWeek = () => {
   const d = new Date();
   return d.getDay() === 0 ? 7 : d.getDay();
@@ -250,6 +303,8 @@ const parseResponse = async (res) => {
   try { return { type: "json", data: JSON.parse(text) }; }
   catch { return { type: "text", data: text }; }
 };
+
+
 
 // ════════════════════════════════════════════════════════════════════
 // SEND USERNAME TO GAS
@@ -602,7 +657,9 @@ const handleSubmit = async () => {
     localStorage.setItem(LS_LAST_RESULT,  JSON.stringify(results));
     localStorage.setItem(LS_LAST_CORRECT, JSON.stringify(data.scored));
     localStorage.setItem(LS_LAST_SCORE,   data.score);
-    localStorage.setItem(LS_LAST_DAY,     currentDay);
+    setWithExpiry(LS_LAST_DAY, currentDay);
+    // no expiry
+    // localStorage.setItem(LS_LAST_DAY,     currentDay);
     localStorage.setItem("last_quiz_date", new Date().toISOString());
 
     showScreen(DOM.screens.alreadyDone);
@@ -637,7 +694,9 @@ const shouldShowLastQuiz = (lastQuizDay, currentDay) => {
 // ════════════════════════════════════════════════════════════════════
 const init = async () => {
   const currentDay  = getCurrentDayOfWeek();
-  const lastQuizDay = Number(localStorage.getItem(LS_LAST_DAY) || 0);
+  // no expiry
+  //const lastQuizDay = Number(localStorage.getItem(LS_LAST_DAY) || 0);
+  const lastQuizDay = getWithExpiry(LS_LAST_DAY);
 
   DOM.nextQuizDate.textContent = formatDate(getNextQuizDate());
   refreshUsernameUI();
